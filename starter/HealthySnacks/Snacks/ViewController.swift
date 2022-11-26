@@ -30,8 +30,12 @@ class ViewController: UIViewController {
     
     lazy var classificationRequest_2: VNCoreMLRequest = {
             do{
-                let classifier = snacks()
+                //let classifier = snacks()
+                print("flag1")
+                let classifier = my_net_2()
+                print("flag2")
                 let model = try VNCoreMLModel(for: classifier.model)
+                print("flag3")
                 let request = VNCoreMLRequest(model: model, completionHandler: {
                     [weak self] request,error in
                     self?.processObservations(for: request, error: error)
@@ -39,7 +43,7 @@ class ViewController: UIViewController {
                 request.imageCropAndScaleOption = .centerCrop
                 return request
             } catch {
-                fatalError("Failed to create request")
+                fatalError("Failed to create request,ERROR: \(error)")
             }
         }()
     
